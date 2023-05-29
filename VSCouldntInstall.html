@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Fix Visual Studio "Couldn't install components" error</title>
+</head>
+<body>
+  <h1>How to fix Visual Studio "Couldn't install components" error:</h1>
+  <ol>
+    <li>
+      <p>Use <a href="https://crystalidea.com/uninstall-tool/download">Uninstall Tool</a> or <a href="https://geekuninstaller.com/download">Geek Uninstaller</a> and navigate to System. Now Force Uninstall the program that couldn't be installed.</p>
+      <p>Example: <code>Microsoft.ClickOnce.BootStrapper.Msi</code></p>
+      <p>Familiar in UT: <code>vs_clickoncebootstrappermsi</code></p>
+    </li>
+    <li>
+      <p>Now View Logs and remove the registry key.</p>
+      <p>The key is in the log.</p>
+      <p><code>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\[key linked to error]</code></p>
+      <p>Use <code>reg.exe</code> to delete the key.</p>
+      <p><code>reg delete [Key]</code></p>
+    </li>
+    <li>
+      <p>Now find the program in</p>
+      <p><code>HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Installer\Products\</code></p>
+      <p>Each key will have a value called <code>ProductName</code>, based on that, you can get the program name off of UT and find it in each key.</p>
+    </li>
+    <li>
+      <p>Now delete the key, and you have successfully manually uninstalled the component.</p>
+      <p>This should fix it as it is equivalent to reinstalling the component that has errors.</p>
+      <p>You can (possibly?) uninstall other programs that don't match the branch the VS you have. Like 17.5.50136 but your VS is in 17.6.</p>
+    </li>
+  </ol>
+</body>
+</html>
